@@ -9,9 +9,33 @@ CSCE3110- Assignment 4
 #include <string>
 #include <vector>
 #include <map>
+#include <list>
 #include <iterator>
 
 using namespace std;
+
+class Graph{
+public:
+    map<int, bool> visited;
+    map<int, list<int> > adjacent;
+
+    void addEdge(int x, int y);
+    void DFS(int x);
+};
+
+void Graph::addEdge(int x, int y){
+     adjacent[x].push_back(y);
+}
+
+void Graph::DFS(int x){
+    visited[x] = true;
+    cout << x << " ";
+
+    list<int>::iterator i;
+    for (i = adjacent[x].begin(); i != adjacent[x].end(); ++i)
+        if (!visited[*i])
+            DFS(*i);
+}
 
 int main(int argc, char *argv[]){
 
@@ -25,6 +49,7 @@ int main(int argc, char *argv[]){
     ifstream myFile(inputFile);
     vector<vector<int>> graph;
     vector<map<int, int>> adj;
+    Graph gr;
 
 // Open file and read information into 2d vector.
     if(myFile.is_open()){
@@ -65,5 +90,20 @@ int main(int argc, char *argv[]){
             }
     }
 */
+
+//Add each map pair as an edge.
+    for(int i=0; i<adj.size(); i++){
+        map<int, int>::iterator itr;
+        for(itr = adj[i].begin(); itr != adj[i].end(); ++itr){
+            int i1= itr->first;
+            int i2= itr->second;
+            gr.addEdge(i1, i2);
+        }
+    }
+
+// Calling the DFS function
+    cout << "DFS SEARCH" << endl;
+    gr.DFS(graph[0][0]);
+
     return 0;
 }
