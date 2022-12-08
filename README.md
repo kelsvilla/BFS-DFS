@@ -9,7 +9,7 @@ To compile run:
 To run:
     ./search input.txt
 
-'input.txt' can replaced with the name of any input files. 'input.txt' is the test file already in this folder. 'input2.txt' is also provided.
+'input.txt' can replaced with the name of any input files. 'input.txt' is the test file already in this folder. 'input2.txt' and 'input3.txt' are also provided.
 
 This code can be broken down into multiple parts:
     Class Graph
