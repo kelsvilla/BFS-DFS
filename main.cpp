@@ -15,15 +15,18 @@ using namespace std;
 
 int main(int argc, char *argv[]){
 
+// Check to see if file is provided. If file is not, exit.
     if(argc == 1){
         cout << "No input file present";
         exit(0);}
 
+// Defining variables and data structures.
     string inputFile = argv[1];
     ifstream myFile(inputFile);
     vector<vector<int>> graph;
     vector<map<int, int>> adj;
 
+// Open file and read information into 2d vector.
     if(myFile.is_open()){
        string line;
 
@@ -41,6 +44,7 @@ int main(int argc, char *argv[]){
         }
     }
 
+// Make map pairs from the original 2d vector and add them to blank vector. These show adjacent vertices.
     for(int i=0; i<graph.size(); i++){
         int a = graph[i][0];
         for(int j=1; j<graph[i].size(); j++){
@@ -52,14 +56,14 @@ int main(int argc, char *argv[]){
         }
     }
 
+// Test checking maps were created correctly.
+/*
     for(int i=0; i <adj.size(); i++){
         map<int, int>::iterator itr;
         for(itr = adj[i].begin(); itr != adj[i].end(); ++itr){
             cout << itr->first << " " << itr->second << endl;
             }
     }
-
-
-
+*/
     return 0;
 }
