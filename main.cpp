@@ -16,11 +16,13 @@ using namespace std;
 
 class Graph{
 public:
-    map<int, bool> visited;
+    map<int, bool> visitedDFS;
+    map<int, bool> visitedBFS;
     map<int, list<int> > adjacent;
 
     void addEdge(int x, int y);
     void DFS(int x);
+    void BFS(int x);
 };
 
 void Graph::addEdge(int x, int y){
@@ -28,13 +30,35 @@ void Graph::addEdge(int x, int y){
 }
 
 void Graph::DFS(int x){
-    visited[x] = true;
+    visitedDFS[x] = true;
     cout << x << " ";
 
     list<int>::iterator i;
     for (i = adjacent[x].begin(); i != adjacent[x].end(); ++i)
-        if (!visited[*i])
+        if (!visitedDFS[*i])
             DFS(*i);
+}
+
+void Graph::BFS(int x){
+    list<int> queue;
+    visitedBFS[x] = true;
+
+    queue.push_back(x);
+
+    while(!queue.empty()){
+        x=queue.front();
+        cout << x << " ";
+        queue.pop_front();
+
+        for (auto adjecent: adjacent[x])
+        {
+            if (!visitedBFS[adjecent])
+            {
+                visitedBFS[adjecent] = true;
+                queue.push_back(adjecent);
+            }
+        }
+    }
 }
 
 int main(int argc, char *argv[]){
@@ -104,6 +128,11 @@ int main(int argc, char *argv[]){
 // Calling the DFS function
     cout << "DFS SEARCH" << endl;
     gr.DFS(graph[0][0]);
-
+    cout << endl;
+//Calling the BFS function
+    cout << "BFS SEARCH" << endl;
+    gr.BFS(graph[0][0]);
+    cout << endl;
+    
     return 0;
 }
